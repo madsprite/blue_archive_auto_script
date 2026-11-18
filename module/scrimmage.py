@@ -94,13 +94,16 @@ def scrimmage_common_operation(self, a, b):
         img_possibles = {"scrimmage_level-list": (1118, los[i])}
         img_ends = "scrimmage_task-info"
         picture.co_detect(self, rgb_ends, rgb_possibles, img_ends, img_possibles, True)
+        # The task-info panel fades in; stars read mid-fade come back as "unknown".
+        time.sleep(0.5)
+        self.update_screenshot_array()
         t = color.check_sweep_availability(self)
         if t == "sss":
             if b == "max":
                 self.click(1085, 300, wait_over=True)
             else:
                 if b > 1:
-                    duration = 0
+                    duration = 0.3  # back-to-back clicks on "+" can drop one
                     if b > 4:
                         duration = 1
                     self.click(1014, 300, count=b - 1, duration=duration, wait_over=True)

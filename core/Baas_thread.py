@@ -92,6 +92,7 @@ class Baas_thread:
         self.current_game_activity = None
         self.package_name = None
         self.server = None
+        self.is_steam_global = False
         self.rgb_feature = None
         self.config_path = self.config_set.config_dir
         self.config = None
@@ -321,6 +322,8 @@ class Baas_thread:
             self.connection = Connection(self)
             self.is_android_device = self.connection.is_android_device()
             self.server = self.connection.get_server()
+            # Steam PC Global client: same server data as Global, but its UI is laid out slightly differently
+            self.is_steam_global = self.server == "Global" and not self.is_android_device
             self.current_game_activity = self.static_config.current_game_activity[self.server]
 
             if self.is_android_device:
@@ -705,6 +708,9 @@ class Baas_thread:
         try:
             fileName = self.project_dir + '/src/rgb_feature/' + self.identifier + '.json'
             self.rgb_feature = json.load(open(fileName, 'r', encoding='utf-8'))['rgb_feature']
+            steam_file = self.project_dir + '/src/rgb_feature/' + self.identifier + '_steam.json'
+            if self.is_steam_global and os.path.exists(steam_file):
+                self.rgb_feature.update(json.load(open(steam_file, 'r', encoding='utf-8'))['rgb_feature'])
             return True
         except Exception as e:
             self.logger.error(e.__str__())
@@ -753,14 +759,14 @@ class Baas_thread:
                 'Global': (536, 26, 619, 44),
                 'JP': (536, 26, 619, 44)
             }
-            region = region[self.server]
+            region = region["Global_steam" if self.is_steam_global and "Global_steam" in region else self.server]
         else:
             region = {
                 'CN': (530, 10, 642, 40),
                 'Global': (502, 13, 612, 33),
                 'JP': (502, 13, 612, 33)
             }
-            region = region[self.server]
+            region = region["Global_steam" if self.is_steam_global and "Global_steam" in region else self.server]
         ocr_res = self.ocr.get_region_res(
             self,
             region,
@@ -797,9 +803,10 @@ class Baas_thread:
             region = {
                 "CN": (965, 10, 1070, 40),
                 "Global": (961, 10, 1072, 40),
+                "Global_steam": (930, 10, 1069, 40),
                 "JP": (932, 13, 1069, 33)
             }
-        region = region[self.server]
+        region = region["Global_steam" if self.is_steam_global and "Global_steam" in region else self.server]
         ocr_res = self.ocr.get_region_res(
             self,
             region,
@@ -831,9 +838,10 @@ class Baas_thread:
             region = {
                 'CN': (745, 10, 912, 40),
                 'Global': (741, 10, 912, 40),
+                'Global_steam': (712, 10, 859, 40),
                 'JP': (714, 13, 859, 33)
             }
-        region = region[self.server]
+        region = region["Global_steam" if self.is_steam_global and "Global_steam" in region else self.server]
         ocr_res = self.ocr.get_region_res(
             self,
             region,
@@ -1115,9 +1123,17 @@ class Baas_thread:
                 time.sleep(1)
 
     def main_page_update_data(self):
-        self.get_ap(True)
-        self.get_creditpoints(True)
-        self.get_pyroxene(True)
+        # The top bar can still be animating in right after returning to the main page,
+        # which gives an empty OCR result. Retry on a fresh screenshot.
+        for attempt in range(3):
+            if attempt:
+                time.sleep(1)
+                self.update_screenshot_array()
+            ok = self.get_ap(True) != 999
+            ok = self.get_creditpoints(True) > 0 and ok
+            ok = self.get_pyroxene(True) > 0 and ok
+            if ok:
+                return
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
 
@@ -55,16 +56,18 @@ def sweep_hard_task(self: Baas_thread):
         to_hard_event(self, True)
         mission_los = [249, 363, 476]
         if not (to_region(self, region, False) and to_mission_info(self, mission_los[mission - 1])
+                and wait_task_info_settled(self)
                 and check_sweep_availability(self, True) == "sss"):
             self.logger.error(f"Skipping task {region}-{mission} since it's not available.")
             continue
 
         button_y_coord = 328
-        if required_counts == "max":
+        # Hard missions cap at 3 sweeps, so 3+ is the same as Max.
+        # "+" clicks are spaced 0.3 s apart because back-to-back clicks can drop one.
+        if required_counts == "max" or required_counts >= 3:
             self.click(1085, button_y_coord, rate=1, wait_over=True)
-        else:
-            duration = 0 if required_counts <= 4 else 1
-            self.click(1014, button_y_coord, count=required_counts - 1, duration=duration, wait_over=True)
+        elif required_counts > 1:
+            self.click(1014, button_y_coord, count=required_counts - 1, duration=0.3, wait_over=True)
         result = start_sweep(self, True)
         if result == "inadequate_ap":
             self.logger.warning("Current AP Insufficient")
@@ -130,12 +133,13 @@ def sweep_normal_task(self: Baas_thread):
         if not to_mission_info(self, missionButtonPos[1]):
             self.logger.error(f"Skipping task {region}-{mission} since it's not available.")
             continue
+        wait_task_info_settled(self)
 
         button_y_coord = 328
         if required_counts == "max":
             self.click(1085, button_y_coord, rate=1, wait_over=True)
         else:
-            duration = 0 if required_counts <= 4 else 1
+            duration = 0.3 if required_counts <= 4 else 1
             self.click(1014, button_y_coord, count=required_counts - 1, duration=duration, wait_over=True)
         result = start_sweep(self, True)
         if result == "inadequate_ap":
@@ -151,6 +155,13 @@ def sweep_normal_task(self: Baas_thread):
     return True
 
 
+def wait_task_info_settled(self: Baas_thread) -> bool:
+    # The Mission Info panel fades in; stars read mid-fade come back as "unknown".
+    time.sleep(0.5)
+    self.update_screenshot_array()
+    return True
+
+
 def start_sweep(self: Baas_thread, skip_first_screenshot: bool = False) -> str:
     img_ends = [
         "purchase_ap_notice",
@@ -158,7 +169,8 @@ def start_sweep(self: Baas_thread, skip_first_screenshot: bool = False) -> str:
         "normal_task_hard-start-sweep-notice",
         "normal_task_charge-challenge-counts",
     ]
-    img_possibles = {"normal_task_task-info": (941, 411)}
+    # Steam: y=411 hits the AP-cost bubble above the Start Sweep button
+    img_possibles = {"normal_task_task-info": (941, 440 if self.is_steam_global else 411)}
     res = picture.co_detect(self, None, None, img_ends, img_possibles, skip_first_screenshot)
     if res == "purchase_ap_notice-localized" or res == "purchase_ap_notice":
         return "inadequate_ap"

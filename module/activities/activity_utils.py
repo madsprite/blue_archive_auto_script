@@ -91,7 +91,7 @@ def activity_sweep(self):
     number = preprocess_activity_region(self.config.activity_sweep_task_number)
     self.logger.info("activity sweep task number : " + str(number))
     self.logger.info("activity sweep times : " + str(times))
-    if len(times) == 0:
+    if len(times) == 0 or all(t == 0 for t in times):  # "0" means off: don't open the event at all
         return True
     self.to_main_page()
     to_activity(self, "mission", True)

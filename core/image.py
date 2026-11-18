@@ -5,6 +5,9 @@ import numpy as np
 from core import position
 from core.utils import merge_nearby_coordinates
 
+# Steam PC client only: px of slack around template areas; set 0 to disable
+STEAM_COMPARE_MARGIN = 4
+
 
 def screenshot_cut(self, area):
     # template is from 1280 * 720 screenshot, if real screenshot is 2560 * 1440, then ratio is 2.0
@@ -24,6 +27,23 @@ def compare_image(self, name, threshold=0.8, rgb_diff=20):
         return False
     area = position.get_area(self.identifier, name)
     template_img = position.image_dic[self.identifier][name]
+    # Steam PC client: its UI is ~0.35% wider than the 1280x720 templates, so elements
+    # drift up to ~2px from their recorded area. When the area is exactly the template size,
+    # search a small margin around it instead of demanding a pixel-exact spot.
+    th, tw = template_img.shape[:2]
+    if (getattr(self, "is_steam_global", False) and STEAM_COMPARE_MARGIN > 0
+            and (area[2] - area[0], area[3] - area[1]) == (tw, th)):
+        m = STEAM_COMPARE_MARGIN
+        pad = (max(0, area[0] - m), max(0, area[1] - m), min(1280, area[2] + m), min(720, area[3] + m))
+        ss_img = screenshot_cut(self, pad)
+        pw, ph = pad[2] - pad[0], pad[3] - pad[1]
+        if ss_img.shape[1] != pw or ss_img.shape[0] != ph:
+            ss_img = cv2.resize(ss_img, (pw, ph), interpolation=cv2.INTER_AREA)
+        _, max_val, _, loc = cv2.minMaxLoc(cv2.matchTemplate(ss_img, template_img, cv2.TM_CCOEFF_NORMED))
+        best = ss_img[loc[1]:loc[1] + th, loc[0]:loc[0] + tw]
+        if not compare_image_rgb(template_img, best, rgb_diff=rgb_diff):
+            return False
+        return max_val > threshold
     ss_img = screenshot_cut(self, area)
     if not compare_image_rgb(template_img, ss_img, rgb_diff=rgb_diff):
         return False

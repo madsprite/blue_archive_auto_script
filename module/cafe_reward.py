@@ -129,7 +129,8 @@ def zoom_out(self):
 
 def swipe_gift_thread(self, duration, ret_queue):
     start_t = time.time()
-    self.swipe(131, 660, 1280, 660, duration=duration)
+    # PC: stop inside the 1280-wide client area; x=1280 leaves the window and the game drops the gift
+    self.swipe(131, 660, 1100, 660, duration=duration)
     ret_queue.put(round(time.time() - start_t, 3))
 
 def swipe_gift_and_screenshot(self):

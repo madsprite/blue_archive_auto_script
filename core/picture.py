@@ -74,9 +74,10 @@ def co_detect(
 
     while self.flag_run:
         current_time = time.time()
-        if skip_first_screenshot:
-            skip_first_screenshot = False
-        else:
+        # Only reuse the last screenshot if one exists (the first task of a run has none).
+        reuse = skip_first_screenshot and getattr(self, "latest_img_array", None) is not None
+        skip_first_screenshot = False
+        if not reuse:
             self.update_screenshot_array()
         # time out check
         if current_time - start_time > time_out:

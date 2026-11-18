@@ -123,13 +123,16 @@ def one_detect(self, a, b):
         img_ends = ["rewarded_task_task-info"]
         img_possibles = {"rewarded_task_level-list": (1118, los[i])}
         picture.co_detect(self, rgb_ends, rgb_possibles, img_ends, img_possibles, skip_first_screenshot=True)
+        # The task-info panel fades in; stars read mid-fade come back as "unknown".
+        time.sleep(0.5)
+        self.update_screenshot_array()
         t = color.check_sweep_availability(self)
         if t == "sss":
             if b == "max":
                 self.click(1085, 300, duration=1, wait_over=True)
             else:
                 if b > 1:
-                    duration = 0
+                    duration = 0.3  # back-to-back clicks on "+" can drop one
                     if b > 4:
                         duration = 1
                     self.click(1014, 300, count=b - 1, duration=duration, wait_over=True)
@@ -150,6 +153,7 @@ def bounty_common_operation(self, a, b):
 BOUNTY_BUTTON_Y = {
     "CN": 431,
     "Global": 431,
+    "Global_steam": 395,  # Steam Campaign layout: 431 misses the Bounty tile
     "JP": 378
 }
 
@@ -163,7 +167,7 @@ def to_bounty(self, num, skip_first_screenshot=False):
     bounty_location_y = BOUNTY_LOCATION_Y[self.server]
     img_ends = "rewarded_task_level-list"
     img_possibles = {
-        "main_page_bus": (731, BOUNTY_BUTTON_Y[self.server]),
+        "main_page_bus": (731, BOUNTY_BUTTON_Y["Global_steam" if self.is_steam_global else self.server]),
         "rewarded_task_location-select": (992, bounty_location_y[num]),
         "rewarded_task_task-info": (1129, 141),
         "rewarded_task_help": (1014, 135),
@@ -182,7 +186,7 @@ def to_choose_bounty(self):
         "normal_task_start-sweep-notice": (887, 164),
         "rewarded_task_level-list": (57, 41),
         "rewarded_task_task-info": (1129, 141),
-        "main_page_bus": (731, BOUNTY_BUTTON_Y[self.server]),
+        "main_page_bus": (731, BOUNTY_BUTTON_Y["Global_steam" if self.is_steam_global else self.server]),
         "rewarded_task_help": (1014, 135),
         "rewarded_task_purchase-bounty-ticket-notice": (888, 163),
     }
