@@ -300,7 +300,7 @@ class TemplateLayoutV2(QWidget):
                     else:
                         value = value
         except:
-            notification.error('设置失败', '请检查输入的数据是否正确', self.cs)
+            notification.error(self.tr('设置失败'), self.tr('请检查输入的数据是否正确'), self.cs)
             return
         self.config[key] = value
         # Detail dialog has its own OK/Cancel; avoid per-key success spam.

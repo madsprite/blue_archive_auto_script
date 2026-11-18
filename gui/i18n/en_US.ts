@@ -581,6 +581,35 @@ make sure to do it before starting the script.</translation>
         <source>一包强化珠δ</source>
         <translation>Enhancement Stone Pack δ</translation>
     </message>
+    <message>
+        <location filename="../util/config_translation.py" line="119"/>
+        <source>日服PC端</source>
+        <translation>JP PC Client</translation>
+    </message>
+    <message>
+        <source>1号咖啡厅邀请</source>
+        <translation>Cafe 1 Invitation</translation>
+    </message>
+    <message>
+        <source>2号咖啡厅邀请</source>
+        <translation>Cafe 2 Invitation</translation>
+    </message>
+    <message>
+        <source>收集免费购买体力</source>
+        <translation>Collect Free Daily Pack (Cash Shop)</translation>
+    </message>
+    <message>
+        <source>清理好友</source>
+        <translation>Clean Up Friends</translation>
+    </message>
+    <message>
+        <source>综合战术测试</source>
+        <translation>Joint Firing Drill</translation>
+    </message>
+    <message>
+        <source>领取pass奖励</source>
+        <translation>Collect Pass Rewards</translation>
+    </message>
 </context>
 <context>
     <name>CreateErrorInfoMessageBox</name>
@@ -757,6 +786,16 @@ make sure to do it before starting the script.</translation>
         <source>困难图队伍属性和普通图相同(见普通图推图设置)，请按照帮助中说明选择推困难图关卡并按对应图设置队伍</source>
         <translation>The team attributes of the hard levels are the same as those of the normal levels (see Sweep the map settings of the normal levels), please follow the instructions in the help to select the difficulty and set the team according to the corresponding levels</translation>
     </message>
+    <message>
+        <location filename="../components/expand/exploreConfig.py" line="20"/>
+        <source>使用简易模式推图</source>
+        <translation>Use simple mode to clear stages</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/exploreConfig.py" line="23"/>
+        <source>简易模式只需要一支成形队伍, 角色较少时建议使用(默认使用第一支队伍)</source>
+        <translation>Simple mode needs only one complete team. Recommended if you have few students (uses team 1 by default)</translation>
+    </message>
 </context>
 <context>
     <name>GlobalFragment</name>
@@ -799,6 +838,22 @@ make sure to do it before starting the script.</translation>
         <location filename="../fragments/glob.py" line="164"/>
         <source>已将 {_number} 复制到剪贴板, 请前往QQ添加群聊</source>
         <translation>{_number} has been copied to the clipboard, please go to QQ to add a group chat</translation>
+    </message>
+    <message>
+        <source>请升级 BAAS版本 ≥ 1.2.0 以使用更新配置</source>
+        <translation>Please upgrade BAAS to version 1.2.0 or later to use update settings</translation>
+    </message>
+    <message>
+        <source>前往 GitHub 下载</source>
+        <translation>Download from GitHub</translation>
+    </message>
+    <message>
+        <source>一群</source>
+        <translation>Group 1</translation>
+    </message>
+    <message>
+        <source>二群</source>
+        <translation>Group 2</translation>
     </message>
 </context>
 <context>
@@ -1895,6 +1950,92 @@ set the &apos;emulator address&apos; to your MuMu emulator path, accurate to MuM
         <source>列表选择你要添加邀请的学生，失焦后写入草稿：</source>
         <translation>Select students to invite; changes are saved to the draft when the field loses focus:</translation>
     </message>
+    <message>
+        <location filename="../components/expand/baasUpdateConfig.py" line="431"/>
+        <source>测试失败，请重试</source>
+        <translation>Test failed, please try again</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/baasUpdateConfig.py" line="431"/>
+        <source>测试错误</source>
+        <translation>Test error</translation>
+    </message>
+    <message>
+        <source>从 setup.toml 读取</source>
+        <translation>read from setup.toml</translation>
+    </message>
+    <message>
+        <source>从 .git 读取</source>
+        <translation>read from .git</translation>
+    </message>
+    <message>
+        <source>将从</source>
+        <translation>Updates will be pulled from</translation>
+    </message>
+    <message>
+        <source>拉取更新</source>
+        <translation>​</translation>
+    </message>
+    <message>
+        <source>由Mirror酱提供</source>
+        <translation>provided by MirrorChyan</translation>
+    </message>
+    <message>
+        <source>从</source>
+        <translation>from </translation>
+    </message>
+    <message>
+        <source>获取</source>
+        <translation>​</translation>
+    </message>
+    <message>
+        <source>您添加的用户为：</source>
+        <translation>Added user: </translation>
+    </message>
+    <message>
+        <source>普通关扫荡设置已清空</source>
+        <translation>Normal stage sweep settings cleared</translation>
+    </message>
+    <message>
+        <source>你的普通关卡已经被设置为：</source>
+        <translation>Normal stages set to: </translation>
+    </message>
+    <message>
+        <source>请检查输入格式是否正确，错误信息：</source>
+        <translation>Please check the input format. Error: </translation>
+    </message>
+    <message>
+        <source>困难关扫荡设置已清空</source>
+        <translation>Hard stage sweep settings cleared</translation>
+    </message>
+    <message>
+        <source>你的困难关卡已经被设置为：</source>
+        <translation>Hard stages set to: </translation>
+    </message>
+    <message>
+        <source>指定学生设置成功为:</source>
+        <translation>Preferred students set to: </translation>
+    </message>
+    <message>
+        <source>日程次数设置成功为:</source>
+        <translation>Schedule counts set to: </translation>
+    </message>
+    <message>
+        <source>你的截图间隔已经被设置为：</source>
+        <translation>Screenshot interval set to: </translation>
+    </message>
+    <message>
+        <source>你的截图方式已经被设置为：</source>
+        <translation>Screenshot method set to: </translation>
+    </message>
+    <message>
+        <source>你的控制方式已经被设置为：</source>
+        <translation>Control method set to: </translation>
+    </message>
+    <message>
+        <source>你的总力战最高难度已经被设置为：</source>
+        <translation>Highest Total Assault difficulty set to: </translation>
+    </message>
 </context>
 <context>
     <name>MainThread</name>
@@ -2093,6 +2234,36 @@ set the &apos;emulator address&apos; to your MuMu emulator path, accurate to MuM
         <source>ServerChan推送</source>
         <translation>ServerChan notification</translation>
     </message>
+    <message>
+        <location filename="../components/expand/pushConfig.py" line="29"/>
+        <source>飞书推送</source>
+        <translation>Feishu (Lark) notification</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/pushConfig.py" line="34"/>
+        <source>企业微信推送</source>
+        <translation>WeCom notification</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/pushConfig.py" line="39"/>
+        <source>Telegram Bot Token</source>
+        <translation>Telegram Bot Token</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/pushConfig.py" line="45"/>
+        <source>Telegram Chat ID</source>
+        <translation>Telegram Chat ID</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/pushConfig.py" line="51"/>
+        <source>Telegram 代理</source>
+        <translation>Telegram proxy</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/pushConfig.py" line="57"/>
+        <source>Telegram API 地址</source>
+        <translation>Telegram API URL</translation>
+    </message>
 </context>
 <context>
     <name>RenameDialogBox</name>
@@ -2181,6 +2352,11 @@ set the &apos;emulator address&apos; to your MuMu emulator path, accurate to MuM
         <location filename="../components/expand/serverConfig.py" line="33"/>
         <source>Steam国际服</source>
         <translation>Steam server</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/serverConfig.py" line="33"/>
+        <source>日服PC端</source>
+        <translation>JP PC Client</translation>
     </message>
 </context>
 <context>
@@ -2479,6 +2655,15 @@ set the &apos;emulator address&apos; to your MuMu emulator path, accurate to MuM
         <source>设置成功</source>
         <translation>successfully set</translation>
     </message>
+    <message>
+        <location filename="../components/expand/expandTemplate.py" line="108"/>
+        <source>确认</source>
+        <translation>Confirm</translation>
+    </message>
+    <message>
+        <source>已经被设置为：</source>
+        <translation> set to: </translation>
+    </message>
 </context>
 <context>
     <name>TestGetRemoteShaMethodWorker</name>
@@ -2529,6 +2714,14 @@ set the &apos;emulator address&apos; to your MuMu emulator path, accurate to MuM
         <location filename="../../window.py" line="477"/>
         <source>更新设置</source>
         <translation>Updates</translation>
+    </message>
+    <message>
+        <source>名为</source>
+        <translation>A config named </translation>
+    </message>
+    <message>
+        <source>的配置已经存在！</source>
+        <translation> already exists!</translation>
     </message>
 </context>
 <context>
@@ -2617,6 +2810,73 @@ set the &apos;emulator address&apos; to your MuMu emulator path, accurate to MuM
         <location filename="../components/template_card.py" line="1"/>
         <source>打开配置失败</source>
         <translation>Failed to open settings</translation>
+    </message>
+</context>
+<context>
+    <name>ShopPanel</name>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="193"/>
+        <source>请勾选购买物品</source>
+        <translation>Tick the items to buy</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="231"/>
+        <source>购买刷新次数</source>
+        <translation>Number of shop refreshes</translation>
+    </message>
+</context>
+<context>
+    <name>panel</name>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="564"/>
+        <source>每天消耗约 {0} 竞技币</source>
+        <translation>Uses about {0} Athletic coins per day</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="565"/>
+        <source>({0}+{0}×{1}+{1}×10)</source>
+        <translation>({0}+{0}×{1}+{1}×10)</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="594"/>
+        <source>每天约 {0} 信用点</source>
+        <translation>About {0} Credits per day</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="595"/>
+        <source>青辉石约 {0}（含刷新）</source>
+        <translation>About {0} Pyroxene (incl. refreshes)</translation>
+    </message>
+    <message>
+        <location filename="../components/expand/shop_panel.py" line="597"/>
+        <source>每天消耗约 {0} 信用点</source>
+        <translation>Uses about {0} Credits per day</translation>
+    </message>
+</context>
+<context>
+    <name>TemplateLayoutV2</name>
+    <message>
+        <source>设置失败</source>
+        <translation>Setting failed</translation>
+    </message>
+    <message>
+        <source>请检查输入的数据是否正确</source>
+        <translation>Please check that the value you entered is correct</translation>
+    </message>
+</context>
+<context>
+    <name>Notification</name>
+    <message>
+        <source>设置失败</source>
+        <translation> setting failed</translation>
+    </message>
+    <message>
+        <source>警告</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>设置可能会出现问题，当前值为：</source>
+        <translation> setting may cause problems. Current value: </translation>
     </message>
 </context>
 </TS>

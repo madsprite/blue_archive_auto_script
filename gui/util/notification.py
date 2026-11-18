@@ -61,10 +61,18 @@ def _success(label: str, msg: str, info_widget: QWidget, duration: int = 800, cu
     ).show()
 
 
+def _t(text: str) -> str:
+    try:
+        from gui.util.translator import baasTranslator
+        return baasTranslator.tr('Notification', text)
+    except Exception:
+        return text
+
+
 def _error(label: str, msg: str, info_widget: QWidget, duration: int = 800, customized=False) -> None:
     InfoBar(
         icon=InfoBarIcon.ERROR,
-        title=f'{label}{"设置失败" if not customized else ""}',
+        title=f'{label}{_t("设置失败") if not customized else ""}',
         content=f'{msg}',
         orient=Qt.Vertical,
         position=InfoBarPosition.BOTTOM_RIGHT,
@@ -76,8 +84,8 @@ def _error(label: str, msg: str, info_widget: QWidget, duration: int = 800, cust
 def _warning(label: str, settled: str, info_widget: QWidget, duration: int = 800) -> None:
     InfoBar(
         icon=InfoBarIcon.WARNING,
-        title='警告',
-        content=f'{label}设置可能会出现问题，当前值为：{settled}',
+        title=_t('警告'),
+        content=f'{label}{_t("设置可能会出现问题，当前值为：")}{settled}',
         orient=Qt.Vertical,
         position=InfoBarPosition.BOTTOM_RIGHT,
         duration=duration,

@@ -126,7 +126,7 @@ class GlobalFragment(ScrollArea):
         title.setStyleSheet("font-family: \"Microsoft YaHei\";font-size: 30px; font-weight: bold;")
         layout.addWidget(title)
 
-        subtitle = QLabel("请升级 BAAS版本 ≥ 1.2.0 以使用更新配置", self)
+        subtitle = QLabel(self.tr("请升级 BAAS版本 ≥ 1.2.0 以使用更新配置"), self)
         # --- OPTIMIZATION: Enable word wrap for subtitle ---
         subtitle.setWordWrap(True)
         subtitle.setAlignment(Qt.AlignCenter)
@@ -136,7 +136,7 @@ class GlobalFragment(ScrollArea):
         sub_layout_0 = QHBoxLayout(self)
         sub_layout_0.addStretch()
 
-        github_button = PushButton("前往 GitHub 下载", self)
+        github_button = PushButton(self.tr("前往 GitHub 下载"), self)
 
         def on_github_button_clicked():
             import webbrowser
@@ -149,8 +149,8 @@ class GlobalFragment(ScrollArea):
         qq_combo.addItem(self.tr("前往qq群下载"), None)
 
         qq_groups = [
-            ("一群", "658302636"),
-            ("二群", "1027430247"),
+            (self.tr("一群"), "658302636"),
+            (self.tr("二群"), "1027430247"),
         ]
 
         for name, number in qq_groups:
